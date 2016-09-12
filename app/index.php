@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< Updated upstream
 <head>
     <link href="assets/css/normalize.css" type="text/css" />
         <link href="assets/css/skeleton.css" type="text/css" />
@@ -22,4 +23,7 @@ echo "Connected successfully";
 ?>
 
 </body>
+=======
+
+>>>>>>> Stashed changes
 </html>
