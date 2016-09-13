@@ -1,43 +1,115 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-    <link href="assets/css/normalize.css" type="text/css" rel="stylesheet" />
-    <link href="assets/css/skeleton.css" type="text/css" rel="stylesheet" />
-    <link href="assets/css/main.css" type="text/css" rel="stylesheet" />
-    <title>CivicSocial</title>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600,500" rel="stylesheet" type="text/css">
+        <link href="assets/css/normalize.css" type="text/css" rel="stylesheet"/>
+        <link href="assets/css/skeleton.css" type="text/css" rel="stylesheet"/>
+        <script src="https://use.fontawesome.com/41d47856e6.js"></script>
+        <link href="assets/css/main.css" type="text/css" rel="stylesheet"/>
+        <title>CivicSocial</title>
     </head>
 
-    <body>
-        <h1>Civic Social</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Coolness</th>
-                    <th>Hieght</th>
-                    <th>Deeds</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Wilson Hobbs</td>
-                    <td>70/100</td>
-                    <td>6'</td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td>Max Hobbs</td>
-                    <td>97/100</td>
-                    <td>4' 11.5"</td>
-                    <td>1</td>
-                </tr>
-            </tbody>
-        </table>
+    <body ng-app="civicsocial">
+        <div id="fb-root"></div>
+        <script>
+            (function(d, s, id) {
+                var js,
+                    fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id))
+                    return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=701807369972563";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+        <div class="container" ng-controller="AppCtrl">
+            <div class="row">
+                <div class="twelve columns">
+                    <h1>Civic Social</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="six columns">
+                    <div class="card" style="padding:10px;">
+                        <div class="row mb10">
+                            <div class="twelve columns">
+                                <input type="text" class="u-full-width" placeholder="Filter by name..." ng-model="filter.name"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="twelve columns">
+                                <input type="text" class="u-full-width" placeholder="Filter by position..." ng-model="filter.position"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="six columns">
+                    <div class="card" style="padding:10px;">
+                        <div class="row">
+                            What's my district?
+                        </div>
+                        <div class="row">
+                            <form>
+
+                                <div class="six columns">
+                                    <input type="text" class="u-full-width" placeholder="ZIP Code" ng-model="filter.name"/>
+                                </div>
+                                <div class="six columns">
+                                    <input type="submit" class="u-full-width" placeholder="Filter by position..." ng-model="filter.position"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="six columns">
+                    <div class="card">
+                        <ul class="menu u-full-width">
+                            <li ng-repeat="person in people | filter:filter" class="item" ng-click="setActive(person.$id)" ng-class="person.$id">
+                                <img ng-src="{{person.image}}"/>
+                                <div class="menu-item-text">
+                                    <h5>{{person.name}}</h5>
+                                    <span>{{person.position}}</span>
+                                </div>
+                                <div class="divider" ng-show="!$last"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="six columns">
+                    <div class="card right">
+                        <img ng-src="{{current.image}}"/>
+                        <h1>{{current.name}}</h1>
+                        <h4>{{current.position}}</h4>
+
+                    </div>
+                    <div class="card right">
+                        <div id="currentTwitter"></div>
+                    </div>
+                    <div class="card right">
+                      <div class="fb-page" data-href="{{current.facebook}}" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
-
+    <script src="https://platform.twitter.com/widgets.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBMhuoZrjdvKSM6Y82njsGWYMAXKWKUf9M",
+            authDomain: "civicsocial-1eeb0.firebaseapp.com",
+            databaseURL: "https://civicsocial-1eeb0.firebaseio.com",
+            storageBucket: ""
+        };
+        firebase.initializeApp(config);
+    </script>
     <!-- AngularFire -->
     <script src="https://cdn.firebase.com/libs/angularfire/2.0.2/angularfire.min.js"></script>
 

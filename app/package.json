@@ -1,0 +1,19 @@
+{
+  "name": "civicsocial",
+  "version": "1.0.0",
+  "description": "A website for all the social media for your local polititians",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wbhob/civic-social-app.git"
+  },
+  "author": "Wilson Hobbs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wbhob/civic-social-app/issues"
+  },
+  "homepage": "https://github.com/wbhob/civic-social-app#readme"
+}
