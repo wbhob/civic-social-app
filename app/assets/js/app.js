@@ -1,5 +1,5 @@
 angular.module("civicsocial", ["firebase"])
-	.controller("AppCtrl", function($scope, $firebaseObject, $firebaseArray) {
+	.controller("AppCtrl", function($scope, $firebaseObject, $firebaseArray, $sce) {
 		var ref = firebase.database().ref("profiles");
 		$scope.people = $firebaseArray(ref);
 		$scope.people.$loaded().then(function() {
@@ -12,7 +12,9 @@ angular.module("civicsocial", ["firebase"])
 				document.getElementById('currentTwitter'), {
 					height: '500',
 					related: 'twitterdev,twitterapi'
-				});
+				});      var url  = "https://www.facebook.com/plugins/page.php?href=" + $scope.current.facebook + "&tabs=timeline&width=300&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=1732805993602261";
+              $scope.current.facebookURL = $sce.trustAsResourceUrl(url);
+              $scope.current.facebook = $sce.trustAsResourceUrl($scope.current.facebook);
 		});
 		$scope.setActive = function(id) {
 			document.getElementById('currentTwitter').innerHTML = "";
@@ -32,5 +34,8 @@ angular.module("civicsocial", ["firebase"])
       else {
         document.getElementById('currentTwitter').innerHTML = "No Twitter timeline found.";
       }
+      var url  = "https://www.facebook.com/plugins/page.php?href=" + $scope.current.facebook + "&tabs=timeline&width=300&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=1732805993602261";
+      $scope.current.facebookURL = $sce.trustAsResourceUrl(url);
+      $scope.current.facebook = $sce.trustAsResourceUrl($scope.current.facebook);
 		};
 	});
