@@ -4,6 +4,8 @@
   "description": "A website for all the social media for your local polititians",
   "main": "index.html",
   "scripts": {
+    "build-geo": "webpack ./assets/js/geocoding.js ./assets/js/geocoding.bundle.js",
+    "watch-geo": "webpack ./assets/js/geocoding.js ./assets/js/geocoding.bundle.js --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,11 @@
   "bugs": {
     "url": "https://github.com/wbhob/civic-social-app/issues"
   },
-  "homepage": "https://github.com/wbhob/civic-social-app#readme"
+  "homepage": "https://github.com/wbhob/civic-social-app#readme",
+  "dependencies": {
+    "which-polygon": "^2.0.1"
+  },
+  "devDependencies": {
+    "webpack": "^1.13.2"
+  }
 }
