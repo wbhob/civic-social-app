@@ -1,5 +1,3 @@
-
-var whichPolygon = require("which-polygon");
 angular.module("civicsocial", ["firebase"])
 	.controller("AppCtrl", function($scope, $firebaseObject, $firebaseArray, $sce, District) {
 		var ref = firebase.database().ref("profiles");
@@ -44,6 +42,7 @@ angular.module("civicsocial", ["firebase"])
 			};
 		};
 	}).factory("District", function() {
+		var whichPolygon = {};
 		var output;
 		// Load in which-polygon module for finding district from point
 
