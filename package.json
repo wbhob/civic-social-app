@@ -5,6 +5,8 @@
   "main": "index.html",
   "scripts": {
     "build-geo": "webpack ./assets/js/geocoding.js ./assets/js/geocoding.bundle.js",
+    "build": "webpack ./assets/js/app.js ./assets/js/app.bundle.js",
+    "watch": "webpack ./assets/js/app.js ./assets/js/app.bundle.js --watch",
     "watch-geo": "webpack ./assets/js/geocoding.js ./assets/js/geocoding.bundle.js --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
