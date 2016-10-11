@@ -44,30 +44,95 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var appCtrl = __webpack_require__(1);
+	var geocodingService = __webpack_require__(2);
+
+	var app = angular.module("civicsocial", ["firebase"]);
+
+	app.controller("AppCtrl",appCtrl);
+	app.service("GeocodingService",geocodingService);
+
+/***/ },
+/* 1 */
+/***/ function(module, exports) {
+
+	var appCtrl = ["$scope","$firebaseObject","$firebaseArray", "$sce", "GeocodingService", function($scope, $firebaseObject, $firebaseArray, $sce, geocodingService) {
+
+	    // Test api call as demonstration
+	    geocodingService.getDistrict("229 Ponce de Leon Ave, Atlanta, GA 30308")
+	    .then(function(d) {console.log(d)});
+
+	    var ref = firebase.database().ref("profiles");
+	    $scope.people = $firebaseArray(ref);
+	    $scope.people.$loaded().then(function() {
+	        $scope.current = $scope.people[0];
+	        $("li." + 1).addClass("active");
+	        twttr.widgets.createTimeline({
+	                sourceType: "profile",
+	                screenName: $scope.current.twitterhandle
+	            },
+	            document.getElementById('currentTwitter'), {
+	                height: '500',
+	                related: 'twitterdev,twitterapi'
+	            });      var url  = "https://www.facebook.com/plugins/page.php?href=" + $scope.current.facebook + "&tabs=timeline&width=300&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=1732805993602261";
+	            $scope.current.facebookURL = $sce.trustAsResourceUrl(url);
+	            $scope.current.facebook = $sce.trustAsResourceUrl($scope.current.facebook);
+	    });
+	    $scope.setActive = function(id) {
+	        document.getElementById('currentTwitter').innerHTML = "";
+	        $("li").removeClass("active");
+	        $("li." + id).addClass("active");
+	        $scope.current = $scope.people[parseInt(id) - 1];
+	        if ($scope.current.twitterhandle) {
+	            twttr.widgets.createTimeline({
+	                    sourceType: "profile",
+	                    screenName: $scope.current.twitterhandle
+	                },
+	                document.getElementById('currentTwitter'), {
+	                    height: '500',
+	                    related: 'twitterdev,twitterapi'
+	                });
+	        }
+	    else {
+	    document.getElementById('currentTwitter').innerHTML = "No Twitter timeline found.";
+	    }
+	    var url  = "https://www.facebook.com/plugins/page.php?href=" + $scope.current.facebook + "&tabs=timeline&width=300&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=1732805993602261";
+	    $scope.current.facebookURL = $sce.trustAsResourceUrl(url);
+	    $scope.current.facebook = $sce.trustAsResourceUrl($scope.current.facebook);
+	    };
+	}];
+
+	module.exports = appCtrl;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// Load in which-polygon module for finding district from point
-	var whichPolygon = __webpack_require__(1);
+	var whichPolygon = __webpack_require__(3);
+
+
+	var geocodingService = function() {
+	    this.getDistrict = function(address) {
+	        return Promise.resolve(
+	            getCoords(address)
+	            .then(getDistrict)
+	        );
+	    }
+	}
 
 	// Promise that loads in geojson and produces query function
 	var districtQuery = new Promise(function(resolve,reject) {
-	    $.getJSON( "./assets/geojson/City_Council_Districts.geojson", function( data ) {
+	    $.getJSON( "http://data.coaplangis.opendata.arcgis.com/datasets/87db1a3385ef4ab1af86411efbe791bf_3.geojson", function( data ) {
 	        var query = whichPolygon(data);
 	        resolve(query);
 	    });
 	});
 
-	// ****** TEST ******* //
-	var address = "229 Ponce de Leon Ave, Atlanta, GA 30306";
-	getCoords(address)
-	.then(function(c) {
-	    return getDistrict(c);
-	})
-	.then(function(d) {
-	    console.log("District for " + address + " is " + d);
-	});
+	module.exports = geocodingService;
 
 
-	// ****** FUNCTIONS ******* //
-
+	// ****** GEOCODING FUNCTIONS ******* //
 	// Function for getting district from coordinates;
 	function getDistrict(coords) {
 	    return Promise.resolve(
@@ -93,12 +158,12 @@
 	}
 
 /***/ },
-/* 1 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var rbush = __webpack_require__(2);
+	var rbush = __webpack_require__(4);
 
 	module.exports = whichPolygon;
 
@@ -172,14 +237,14 @@
 
 
 /***/ },
-/* 2 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = rbush;
 
-	var quickselect = __webpack_require__(3);
+	var quickselect = __webpack_require__(5);
 
 	function rbush(maxEntries, format) {
 	    if (!(this instanceof rbush)) return new rbush(maxEntries, format);
@@ -739,7 +804,7 @@
 
 
 /***/ },
-/* 3 */
+/* 5 */
 /***/ function(module, exports) {
 
 	'use strict';
