@@ -59,10 +59,6 @@
 /***/ function(module, exports) {
 
 	var appCtrl = ["$scope", "$firebaseObject", "$firebaseArray", "$sce", "GeocodingService", function($scope, $firebaseObject, $firebaseArray, $sce, geocodingService) {
-		$scope.address = {
-			input: ""
-		};
-		console.log($scope.address.input)
 		var ref = firebase.database().ref("profiles");
 		$scope.people = $firebaseArray(ref);
 		$scope.people.$loaded().then(function() {
@@ -126,8 +122,8 @@
 	            getCoords(address)
 	            .then(getDistrict)
 	        );
-	    }
-	}
+	    };
+	};
 
 	// Promise that loads in geojson and produces query function
 	var districtQuery = new Promise(function(resolve,reject) {
@@ -148,7 +144,7 @@
 	        .then(function(query) {
 	            return query(coords).DISTRICT;
 	        })
-	    )
+	    );
 	}
 
 	// Function for getting coordinates from an inputted address
@@ -161,9 +157,10 @@
 	            // Return first entry for now; In future improve to return full list, with user clicking on correct address
 	            resolve(data.features[0].geometry.coordinates);
 	        });
-	    })
-	    
+	    });
+
 	}
+
 
 /***/ },
 /* 3 */

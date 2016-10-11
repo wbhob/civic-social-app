@@ -8,8 +8,8 @@ var geocodingService = function() {
             getCoords(address)
             .then(getDistrict)
         );
-    }
-}
+    };
+};
 
 // Promise that loads in geojson and produces query function
 var districtQuery = new Promise(function(resolve,reject) {
@@ -30,7 +30,7 @@ function getDistrict(coords) {
         .then(function(query) {
             return query(coords).DISTRICT;
         })
-    )
+    );
 }
 
 // Function for getting coordinates from an inputted address
@@ -43,6 +43,6 @@ function getCoords(address) {
             // Return first entry for now; In future improve to return full list, with user clicking on correct address
             resolve(data.features[0].geometry.coordinates);
         });
-    })
-    
+    });
+
 }

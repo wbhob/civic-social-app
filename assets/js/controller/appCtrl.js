@@ -1,8 +1,4 @@
 var appCtrl = ["$scope", "$firebaseObject", "$firebaseArray", "$sce", "GeocodingService", function($scope, $firebaseObject, $firebaseArray, $sce, geocodingService) {
-	$scope.address = {
-		input: ""
-	};
-	console.log($scope.address.input)
 	var ref = firebase.database().ref("profiles");
 	$scope.people = $firebaseArray(ref);
 	$scope.people.$loaded().then(function() {
