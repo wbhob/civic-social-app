@@ -9,6 +9,13 @@ var geocodingService = function() {
             .then(getDistrict)
         );
     };
+    this.getDistrictFromCoordinates = function(coords) {
+        return Promise.resolve(getDistrict(coords));
+    };
+
+    this.getAddressFromCoordinates = function(address) {
+        return Promise.resolve(getCoords(address));
+    };
 };
 
 // Promise that loads in geojson and produces query function
