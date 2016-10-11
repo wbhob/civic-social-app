@@ -32,6 +32,23 @@
             <div class="row">
                 <div class="six columns">
                     <div class="card" style="padding:10px;">
+                        <div class="row">
+                            What's my district?
+                        </div>
+                        <div class="row">
+                            <form ng-submit="getDistrict()">
+                                <div class="six columns">
+                                    <input type="text" class="u-full-width" placeholder="Address..." ng-model="address.input"/>
+                                </div>
+                                <div class="six columns">
+                                    <input type="submit" ng-click="getDistrict()" class="u-full-width"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="six columns">
+                    <div class="card" style="padding:10px;">
                         <div class="row mb10">
                             <div class="twelve columns">
                                 <input type="text" class="u-full-width" placeholder="Filter by name..." ng-model="filter.name"/>
@@ -41,24 +58,6 @@
                             <div class="twelve columns">
                                 <input type="text" class="u-full-width" placeholder="Filter by position..." ng-model="filter.position"/>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="six columns">
-                    <div class="card" style="padding:10px;">
-                        <div class="row">
-                            What's my district?
-                        </div>
-                        <div class="row">
-                            <form ng-submit="getDisctrict()">
-
-                                <div class="six columns">
-                                    <input type="text" class="u-full-width" placeholder="Address..." ng-model="address"/>
-                                </div>
-                                <div class="six columns">
-                                    <input type="submit" class="u-full-width"/>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
