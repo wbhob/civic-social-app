@@ -26,7 +26,7 @@
         <div class="container" ng-controller="AppCtrl">
             <div class="row">
                 <div class="twelve columns">
-                    <img src="assets/img/logo.png" class="logo" />
+                    <img src="assets/img/logo.png" class="logo"/>
                 </div>
             </div>
             <div class="row">
@@ -65,6 +65,21 @@
             </div>
             <div class="row">
                 <div class="six columns">
+                    <div class="card right">
+                        <img ng-src="{{current.image}}"/>
+                        <h1>{{current.name}}</h1>
+                        <h4>{{current.position}}</h4>
+                    </div>
+                    <div class="card right">
+                        <div id="currentTwitter"></div>
+                    </div>
+                    <div class="card right" style="text-align:center">
+                        <iframe ng-src="{{current.facebookURL}}" style="border:none;overflow:hidden; height:500px;text-align:center" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                        <!--<blockquote cite="https://www.facebook.com/allenbuckley2016/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/allenbuckley2016/">Allen Buckley for U.S. Senate 2016</a></blockquote>-->
+                        <!--<div class="fb-page" data-href="{{current.facebook}}" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>-->
+                    </div>
+                </div>
+                <div class="six columns">
                     <div class="card">
                         <ul class="menu u-full-width">
                             <li ng-repeat="person in people | filter:filter" class="item" ng-click="setActive(person.$id)" ng-class="person.$id">
@@ -78,31 +93,11 @@
                         </ul>
                     </div>
                 </div>
-                <div class="six columns">
-                    <div class="card right">
-                        <img ng-src="{{current.image}}"/>
-                        <h1>{{current.name}}</h1>
-                        <h4>{{current.position}}</h4>
-                    </div>
-                    <div class="card right">
-                        <div id="currentTwitter"></div>
-                    </div>
-                    <div class="card right" style="text-align:center">
-                      <iframe
-                            ng-src="{{current.facebookURL}}"
-                            style="border:none;overflow:hidden; height:500px;text-align:center"
-                            scrolling="no"
-                            frameborder="0"
-                            allowTransparency="true"></iframe>
-                            <!--<blockquote cite="https://www.facebook.com/allenbuckley2016/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/allenbuckley2016/">Allen Buckley for U.S. Senate 2016</a></blockquote>-->
-                            <!--<div class="fb-page" data-href="{{current.facebook}}" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>-->
-                    </div>
-                </div>
             </div>
         </div>
     </body>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="vendor/angular.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
     <script src="https://platform.twitter.com/widgets.js"></script>
     <script>
@@ -117,7 +112,7 @@
     </script>
     <!-- AngularFire -->
     <script src="https://cdn.firebase.com/libs/angularfire/2.0.2/angularfire.min.js"></script>
-    <script src="assets/js/geocoding.bundle.js"></script>
-    <script src="assets/js/app.js"></script>
+
+    <script src="assets/js/app.bundle.js"></script>
 
 </html>

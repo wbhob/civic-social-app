@@ -1,23 +1,25 @@
 // Load in which-polygon module for finding district from point
 var whichPolygon = require("which-polygon");
 
+
+var geocodingService = function() {
+    this.getDistrict = function(address) {
+        return Promise.resolve(
+            getCoords(address)
+            .then(getDistrict)
+        );
+    }
+}
+
 // Promise that loads in geojson and produces query function
 var districtQuery = new Promise(function(resolve,reject) {
-    $.getJSON( "./assets/geojson/City_Council_Districts.geojson", function( data ) {
+    $.getJSON( "http://data.coaplangis.opendata.arcgis.com/datasets/87db1a3385ef4ab1af86411efbe791bf_3.geojson", function( data ) {
         var query = whichPolygon(data);
         resolve(query);
     });
 });
 
-// ****** TEST ******* //
-var address = "229 Ponce de Leon Ave, Atlanta, GA 30306";
-getCoords(address)
-.then(function(c) {
-    return getDistrict(c);
-})
-.then(function(d) {
-    console.log("District for " + address + " is " + d);
-});
+module.exports = geocodingService;
 
 
 // ****** GEOCODING FUNCTIONS ******* //
